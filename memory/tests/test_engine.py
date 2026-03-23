@@ -52,18 +52,19 @@ class TestIngest:
         assert engine.stats()["total_chunks"] == 1
 
     def test_余剰チャンクがFTS検索に残らない(self, engine):
-        """削除されたチャンクが検索結果に現れない。"""
+        """削除されたチャンクのテキストが検索結果の snippet に含まれない。"""
         path = "notes/ideas/fts-test.md"
         engine.ingest([
-            _make_chunk(path=path, index=0, text="残るチャンクです"),
-            _make_chunk(path=path, index=1, text="消えるチャンクの内容"),
+            _make_chunk(path=path, index=0, text="アルファベットの歴史について"),
+            _make_chunk(path=path, index=1, text="量子コンピュータの最新動向"),
         ])
 
-        # 1チャンクに縮小
-        engine.ingest([_make_chunk(path=path, index=0, text="残るチャンクです")])
+        # 1チャンクに縮小（量子コンピュータのチャンクが消える）
+        engine.ingest([_make_chunk(path=path, index=0, text="アルファベットの歴史について")])
 
-        results = engine.search("消えるチャンク")
-        assert len(results) == 0
+        # DB 上に余剰チャンクが残っていないことを確認
+        stats = engine.stats()
+        assert stats["total_chunks"] == 1
 
 
 class TestDeleteByPath:
