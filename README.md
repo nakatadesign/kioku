@@ -28,6 +28,10 @@ See `docs/setup-v1.md` for the full setup guide.
 - `docs/notification-policy-v1.md` — Notification governance
 - `docs/overview-v1.md` — Detailed overview & comparison
 
+## Template vs. Your Instance
+
+This repository is an **open-source template**. Fork or clone it to create your own kioku instance. Your personal instance will contain private notes, tasks, and ideas — **we strongly recommend keeping it as a Private repository on GitHub**.
+
 ## License
 
-Private repository. Not for redistribution.
+MIT License. See [LICENSE](LICENSE) for details.
