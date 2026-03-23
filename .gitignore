@@ -1,0 +1,25 @@
+# Telegram bot トークン
+.claude/channels/telegram/.env
+.env
+*.env
+
+# トークンファイル類
+*.token
+*.key
+secrets/
+.secrets/
+
+# macOS
+.DS_Store
+
+# 一時ファイル
+*.tmp
+*.bak
+
+# ローカル専用ファイル（通知制御・マーカー）
+.last-inbox-check
+.last-notified
+.daily-notify-count
+
+# ログファイル（.gitkeep は残す）
+logs/*.log

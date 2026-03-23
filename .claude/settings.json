@@ -1,0 +1,46 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/Claude/kioku && git add -A 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/Claude/kioku && git pull --rebase origin main 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/Claude/kioku && git add -A && git diff-index --quiet HEAD || git commit -m 'auto: session $(date +%H:%M)' 2>/dev/null || true"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/Claude/kioku/scripts/proactive-check.sh >> ~/Claude/kioku/logs/proactive-check.log 2>&1 || true"
+          }
+        ]
+      }
+    ]
+  }
+}
