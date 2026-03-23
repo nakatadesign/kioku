@@ -32,9 +32,9 @@ It is not a tool. It is **a working directory for Claude Code to live in**.
 
 ---
 
-## Three inputs, one source of truth
+## Capture from your computer or phone
 
-kioku routes Mac, iPhone, and Claude Desktop into a **single Git repository**.
+kioku connects your PC and smartphone to a **single Git repository** — your one source of truth.
 
 ```
 Mac terminal ────────────────────────┐
