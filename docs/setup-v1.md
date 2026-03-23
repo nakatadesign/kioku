@@ -198,7 +198,7 @@ notes/ のエントリは簡潔で自己完結させること。
         "hooks": [
           {
             "type": "command",
-            "command": "cd ~/Claude/kioku && git add -A && git diff-index --quiet HEAD || git commit -m 'auto: session $(date +%H:%M)' 2>/dev/null || true"
+            "command": "cd ~/Claude/kioku && git add -A && git diff-index --quiet HEAD || git commit -m \"auto: session $(date +%H:%M)\" 2>/dev/null || true"
           }
         ]
       },
