@@ -23,3 +23,7 @@ secrets/
 
 # ログファイル（.gitkeep は残す）
 logs/*.log
+
+# セマンティック記憶エンジン（ランタイム生成データ）
+memory/data/
+memory/.venv/
