@@ -37,11 +37,9 @@ kioku はそのための Git リポジトリテンプレートです。
 kioku は PC とスマートフォンを**単一の Git リポジトリ**に束ねます。どちらからでもナレッジを追加でき、同じリポジトリを見ています。
 
 ```
-Mac ターミナル ──────────────────────┐
+PC（Mac ターミナル）────────────────┐
                                      ▼
-iPhone（Telegram Channels）────► Claude Code セッション
-                                     │
-Claude Desktop（GitHub connector）──►│（別セッション）
+スマートフォン（Telegram Channels）► Claude Code セッション
                                      ▼
                          your-username/kioku（Private）
                          ─────────────────────────────

@@ -9,9 +9,8 @@
 
 ## 入力口
 
-- Mac ターミナル：Claude Code 直接操作（メイン）
-- iPhone：Telegram → Channels プラグイン（同じセッション）
-- Claude Desktop：GitHub コネクター（別セッション・同じリポジトリ）
+- PC（Mac ターミナル）：Claude Code 直接操作（メイン）
+- スマートフォン（iPhone）：Telegram → Channels プラグイン（同じセッション）
 
 ## ナレッジフローの原則
 
@@ -48,11 +47,6 @@ Telegram 経由の場合：
 ターミナル経由の場合：
 - コミット前に差分を表示
 - `save` / `push` トリガーまたは明示的な指示があった場合のみ push
-
-Claude Desktop 経由の場合（別セッション）：
-- 書き込み前に必ず git pull --rebase origin main を実行
-- inbox/ にのみ書き込む（notes/ や daily/ に直接書かない）
-- 書き込み後すぐに git commit && git push
 
 ## ハードセーフティルール
 

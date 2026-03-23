@@ -7,25 +7,25 @@
 ```
 入力層
 ─────────────────────────────────────────────────────────────
-  Mac ターミナル          iPhone（Telegram）      Claude Desktop
-  Claude Code 直接操作    Channels プラグイン      GitHub コネクター
-       │                        │                      │（読み書き）
-       └────────────────────────┘                      │
-                     │                                 │
-コア層               ▼                                 │
+  PC（Mac ターミナル）       スマートフォン（Telegram）
+  Claude Code 直接操作       Channels プラグイン
+       │                        │
+       └────────────────────────┘
+                     │
+コア層               ▼
 ─────────────────────────────────────────────────────────────
-          Claude Code セッション（MacBook Air）          │
-          --channels plugin:telegram                   │
-          --dangerously-skip-permissions               │
-          WorkingDirectory: ~/Claude/kioku             │
-                     │                                 │
-          フック：    │                                 │
-          PostToolUse → git add -A のみ（コミットしない）│
-          Stop       → git commit + proactive-check   │
-                     │                                 │
-保存層               ▼                                 ▼
+          Claude Code セッション
+          --channels plugin:telegram
+          --dangerously-skip-permissions
+          WorkingDirectory: ~/Claude/kioku
+                     │
+          フック：    │
+          PostToolUse → git add -A のみ（コミットしない）
+          Stop       → git commit + proactive-check
+                     │
+保存層               ▼
 ─────────────────────────────────────────────────────────────
-                  nakatadesign/kioku（GitHub Private）
+                  your-username/kioku（GitHub Private）
                   ├── inbox/   ← すべての入力の正規入口
                   ├── daily/
                   ├── notes/
@@ -312,23 +312,6 @@ echo "=== $(date) weekly-review end ==="
 ```
 
 ---
-
-## Claude Desktop の整合ルール
-
-Claude Desktop は**別の Claude セッション**です。ターミナルセッションとコンテキストは共有しません。  
-同じ Git リポジトリを操作するため、以下のルールを守ります。
-
-| 操作 | ルール |
-|---|---|
-| 書き込み前 | 必ず `git pull --rebase origin main` を実行してから書く |
-| inbox への追記 | ターミナルセッションと同じ命名規則（`inbox/YYYY-MM-DD-[種別].md`）を使う |
-| コミット | 書き込み後に `git commit -m "desktop: [内容] HH:MM"` でコミット |
-| push | コミット後すぐに push（コンフリクトを最小化するため） |
-| process は実行しない | `notes/` への移動はターミナル側の `/project:process` に委ねる |
-
-**コンフリクト発生時：** `git rebase --continue` または `git mergetool` で解決。  
-inbox への追記は append-only なのでコンフリクトはほぼ起きない。  
-コンフリクトが起きやすいのは `daily/` のマージ時なので、Desktop 側は `daily/` に直接書かない。
 
 ---
 

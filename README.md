@@ -37,11 +37,9 @@ It is not a tool. It is **a working directory for Claude Code to live in**.
 kioku connects your PC and smartphone to a **single Git repository** — your one source of truth.
 
 ```
-Mac terminal ────────────────────────┐
+PC (Mac terminal) ──────────────────┐
                                      ▼
-iPhone (Telegram Channels) ─────► Claude Code session
-                                     │
-Claude Desktop (GitHub connector) ──►│ (separate session)
+Smartphone (Telegram Channels) ──► Claude Code session
                                      ▼
                          your-username/kioku (Private)
                          ─────────────────────────────

@@ -72,12 +72,10 @@ Channels 対応は他テンプレートが追随できる機能です。
 
 | 入力口 | 方法 | セッション |
 |---|---|---|
-| Mac ターミナル | Claude Code 直接操作 | メインセッション |
-| iPhone | Telegram → Claude Code Channels | 同じメインセッション |
-| Claude Desktop | GitHub コネクター（読み取り）＋自然言語で書き込み | 別セッション・同じリポジトリ |
+| PC（Mac ターミナル） | Claude Code 直接操作 | メインセッション |
+| スマートフォン（iPhone） | Telegram → Claude Code Channels | 同じメインセッション |
 
-3つすべてが同一の Git リポジトリに書き込みます。**Git が唯一の真実です。**  
-どのクライアントも書き換え可能。コンフリクトは `git pull --rebase` で解決します。
+どちらも同一の Git リポジトリに書き込みます。**Git が唯一の真実です。**
 
 ---
 

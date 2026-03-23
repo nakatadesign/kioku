@@ -79,10 +79,9 @@ conn.enable_load_extension(True)  # AttributeError が出なければ OK
 - cold 検索（Python起動 + モデルロード + 検索）5s 以内
 - **Claude API は使用しない** — 検索はローカル完結、Telegram 通知は Bot API 直接呼び出し
 
-**Telegram 通知について:**
-proactive-check.sh の Telegram 通知は現在 `claude -p` 経由。
-Phase 2 統合時に `curl + Telegram Bot API` 直接呼び出しに切り替え、
-Claude API 依存を完全に排除する。
+**Telegram 通知:**
+proactive-check.sh の Telegram 通知は `curl + Telegram Bot API` 直接呼び出しで実装済み。
+Claude API 依存はない。
 
 ### Phase 3: process.md 統合 — **完了**
 
