@@ -24,6 +24,11 @@ secrets/
 # ログファイル（.gitkeep は残す）
 logs/*.log
 
+# Python 生成物
+**/__pycache__/
+**/.pytest_cache/
+*.pyc
+
 # セマンティック記憶エンジン（ランタイム生成データ）
 memory/data/
 memory/.venv/
