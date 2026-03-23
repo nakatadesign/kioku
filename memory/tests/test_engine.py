@@ -51,20 +51,26 @@ class TestIngest:
         engine.ingest([_make_chunk(path=path, index=0, text="チャンク0あいう")])
         assert engine.stats()["total_chunks"] == 1
 
-    def test_余剰チャンクがFTS検索に残らない(self, engine):
-        """削除されたチャンクのテキストが検索結果の snippet に含まれない。"""
+    def test_余剰チャンクが検索に残らない(self, engine):
+        """削除されたチャンク固有の語がDB・検索の両方から消える。"""
         path = "notes/ideas/fts-test.md"
         engine.ingest([
             _make_chunk(path=path, index=0, text="アルファベットの歴史について"),
-            _make_chunk(path=path, index=1, text="量子コンピュータの最新動向"),
+            _make_chunk(path=path, index=1, text="量子コンピュータの最新動向についての調査報告書"),
         ])
+        assert engine.stats()["total_chunks"] == 2
 
-        # 1チャンクに縮小（量子コンピュータのチャンクが消える）
+        # 1チャンクに縮小（index=1 が消える）
         engine.ingest([_make_chunk(path=path, index=0, text="アルファベットの歴史について")])
+        assert engine.stats()["total_chunks"] == 1
 
-        # DB 上に余剰チャンクが残っていないことを確認
-        stats = engine.stats()
-        assert stats["total_chunks"] == 1
+        # 削除されたチャンクの行が DB に残っていないことを直接確認
+        conn = engine._get_conn()
+        rows = conn.execute(
+            "SELECT id FROM chunks WHERE source_path = ? AND chunk_index = 1",
+            (path,),
+        ).fetchall()
+        assert len(rows) == 0, "余剰チャンク行が chunks テーブルに残っている"
 
 
 class TestDeleteByPath:
