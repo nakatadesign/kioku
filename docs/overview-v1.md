@@ -165,7 +165,7 @@ kioku/
 │   └── proactive-check.sh       # ガバナンス付き
 ├── .launchd/
 ├── logs/                        # スクリプトの stdout/stderr
-└── docs/                        # 内部ドキュメント（非公開）
+└── docs/                        # セットアップ・設計・セキュリティ等（テンプレ本体と同様に公開）
 ```
 
 ---

@@ -128,12 +128,7 @@ kioku/
 │
 ├── logs/                     # 📋 全スクリプトの実行ログ
 │
-└── docs/                     # 内部ドキュメント（非公開）
-    ├── overview-v1.md
-    ├── architecture-v1.md
-    ├── security-v1.md
-    ├── setup-v1.md
-    └── notification-policy-v1.md
+└── docs/                     # 参照ドキュメント（リポジトリと同じ公開範囲・一覧は下記「ドキュメント」）
 ```
 
 ---

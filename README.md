@@ -128,12 +128,7 @@ kioku/
 │
 ├── logs/                     # 📋 Execution logs for all scripts
 │
-└── docs/                     # Internal documentation (not for public distribution)
-    ├── overview-v1.md
-    ├── architecture-v1.md
-    ├── security-v1.md
-    ├── setup-v1.md
-    └── notification-policy-v1.md
+└── docs/                     # Reference documentation (same visibility as this repo — see [Documentation](#documentation))
 ```
 
 ---
