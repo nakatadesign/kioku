@@ -28,10 +28,14 @@ logger = logging.getLogger(__name__)
 
 
 def cmd_reindex(args: argparse.Namespace) -> None:
-    """notes/ と daily/ の全ファイルをインデックスに登録する。"""
+    """notes/ と daily/ の全ファイルをインデックスに登録する。
+
+    現存しないファイルは DB から削除する。
+    """
     engine = Engine()
     total_files = 0
     total_chunks = 0
+    current_paths: set[str] = set()
 
     t0 = time.time()
     for dir_name in INDEX_DIRS:
@@ -43,17 +47,28 @@ def cmd_reindex(args: argparse.Namespace) -> None:
         for md_file in sorted(target_dir.rglob("*.md")):
             if md_file.name == ".gitkeep":
                 continue
+            rel_path = str(md_file.relative_to(KIOKU_ROOT))
+            current_paths.add(rel_path)
+
             chunks = chunk_file(md_file, KIOKU_ROOT)
             if chunks:
                 inserted = engine.ingest(chunks)
                 total_files += 1
                 total_chunks += inserted
                 if inserted > 0:
-                    logger.info(f"  {md_file.relative_to(KIOKU_ROOT)} → {inserted} チャンク")
+                    logger.info(f"  {rel_path} → {inserted} チャンク")
+
+    # DB にあるが現存しないファイルを削除
+    indexed_paths = engine.get_indexed_paths()
+    stale_paths = indexed_paths - current_paths
+    for path in sorted(stale_paths):
+        deleted = engine.delete_by_path(path)
+        logger.info(f"  {path} を DB から削除 ({deleted} チャンク)")
 
     elapsed = time.time() - t0
     engine.close()
-    print(f"\nreindex 完了: {total_files} ファイル, {total_chunks} チャンク ({elapsed:.1f}s)")
+    print(f"\nreindex 完了: {total_files} ファイル, {total_chunks} チャンク"
+          f" (削除: {len(stale_paths)} ファイル, {elapsed:.1f}s)")
 
 
 def cmd_ingest(args: argparse.Namespace) -> None:

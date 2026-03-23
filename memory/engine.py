@@ -164,13 +164,21 @@ class Engine:
             self._conn = None
 
     def ingest(self, chunks: list[Chunk]) -> int:
-        """チャンクを DB に挿入・更新する。挿入件数を返す。"""
+        """チャンクを DB に挿入・更新する。挿入件数を返す。
+
+        同一 source_path で chunk_index が減った場合、余剰チャンクを削除する。
+        """
+        if not chunks:
+            return 0
+
         conn = self._get_conn()
         inserted = 0
+        source_path = chunks[0].source_path
+        new_max_index = max(c.index for c in chunks)
 
         # ベクトル埋め込み（有効時のみ）
         embeddings = None
-        if self._vector_enabled and chunks:
+        if self._vector_enabled:
             from .embedder import embed_documents
             texts = [c.text for c in chunks]
             embeddings = embed_documents(texts)
@@ -212,6 +220,16 @@ class Engine:
                 )
 
             inserted += 1
+
+        # 余剰チャンク削除: 以前より chunk_index が減った場合
+        stale = conn.execute(
+            "SELECT id FROM chunks WHERE source_path = ? AND chunk_index > ?",
+            (source_path, new_max_index),
+        ).fetchall()
+        for row in stale:
+            conn.execute("DELETE FROM chunks WHERE id = ?", (row["id"],))
+            if self._vector_enabled:
+                conn.execute("DELETE FROM chunks_vec WHERE rowid = ?", (row["id"],))
 
         conn.commit()
         return inserted
@@ -377,6 +395,12 @@ class Engine:
             return math.pow(2, -age_days / HALF_LIFE_DAYS)
         except ValueError:
             return 0.5
+
+    def get_indexed_paths(self) -> set[str]:
+        """DB に登録されている source_path の集合を返す。"""
+        conn = self._get_conn()
+        rows = conn.execute("SELECT DISTINCT source_path FROM chunks").fetchall()
+        return {row["source_path"] for row in rows}
 
     def stats(self) -> dict:
         """統計情報を返す。"""

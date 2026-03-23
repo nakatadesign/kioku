@@ -55,9 +55,9 @@ try:
     print('  sqlite-vec: OK（ベクトル検索有効）')
     conn.close()
 except (AttributeError, ImportError, Exception) as e:
-    print(f'  sqlite-vec: 無効（FTS5-only モードで動作）')
+    print(f'  sqlite-vec: 無効 → FTS5-only モードで正常に動作します')
     print(f'    理由: {e}')
-    print(f'    ヒント: Homebrew Python に切り替えると sqlite-vec が利用可能になります')
+    print(f'    補足: ベクトル検索を有効にしたい場合は Homebrew Python 等を検討してください')
 "
 
 # Ruri v3 モデルのプリロード
