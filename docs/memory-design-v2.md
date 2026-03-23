@@ -1,13 +1,12 @@
 # kioku memory — 設計方針 v2
 
-> 原典: noumiso/inbox/2026-03-23-research.md
-> 本ドキュメントは Phase 1 PoC 完了後の方針更新版。
+> Phase 1 PoC 完了後の設計調査メモを整理した公開版。
 
 ---
 
-## 基本方針: API 不使用の完全ローカル動作
+## 基本方針: Claude API 不使用・検索処理はローカル完結
 
-kioku v2 のセマンティック記憶エンジンは **Claude API を一切使わない** 完全ローカル動作を原則とする。
+kioku v2 のセマンティック記憶エンジンは **Claude API を使わず、検索処理をローカルで完結** させることを原則とする。Telegram への通知送信には Telegram Bot API を直接呼び出す。
 
 **理由:**
 - コスト予測不能: ノート走査のコストがノート数に比例して増加する
@@ -78,7 +77,7 @@ conn.enable_load_extension(True)  # AttributeError が出なければ OK
 - ヒット率 3/5 以上（上位5件中、期待ノートが3件以上含まれる）
 - warm 検索 500ms 以内
 - cold 検索（Python起動 + モデルロード + 検索）5s 以内
-- **Claude API は使用しない** — 検索もTelegram通知も完全ローカルで完結させる
+- **Claude API は使用しない** — 検索はローカル完結、Telegram 通知は Bot API 直接呼び出し
 
 **Telegram 通知について:**
 proactive-check.sh の Telegram 通知は現在 `claude -p` 経由。
@@ -98,7 +97,7 @@ Claude API 依存を完全に排除する。
 
 ---
 
-## proactive-check.sh の将来形（API不使用版）
+## proactive-check.sh の将来形（ローカル検索 + Telegram Bot API 直接通知）
 
 ```bash
 # memory セットアップ済み → ローカル検索 + Bot API 直接通知
