@@ -32,3 +32,6 @@ logs/*.log
 # セマンティック記憶エンジン（ランタイム生成データ）
 memory/data/
 memory/.venv/
+
+# 評価用ローカルデータ
+eval/
