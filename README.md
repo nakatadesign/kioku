@@ -131,6 +131,8 @@ kioku/
 └── docs/                     # Reference documentation (same visibility as this repo — see [Documentation](#documentation))
 ```
 
+> **Note:** Auto-staging and auto-commit are driven by `.claude/settings.json` hooks, which only take effect when you open the kioku repository itself as your Claude Code working directory. If you open a different project as the root, kioku's hooks do not run — use `--add-dir` to reference kioku notes as read-only context from other sessions.
+
 ---
 
 ## Proactive notifications — the core of kioku
