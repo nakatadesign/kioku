@@ -46,7 +46,7 @@ Smartphone (Telegram Channels) ──► Claude Code session
                          inbox/ → notes/ → reports/
 ```
 
-**Git is the single source of truth.** Write from any device, read from any client — it's all the same repository.
+**Git is the single source of truth.** Write from any device, read from any machine — it's all the same repository.
 
 ---
 
