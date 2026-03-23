@@ -22,8 +22,10 @@
 
 ### 1-1. GitHub リポジトリ作成
 
+> **Note:** `nakatadesign/kioku` は例です。自分の GitHub ユーザー名とリポ名に置き換えてください。個人インスタンスは `--private` を推奨します。
+
 ```bash
-gh repo create nakatadesign/kioku \
+gh repo create YOUR_GH_USER/kioku \
   --private \
   --description "Personal knowledge layer for Claude Code" \
   --clone
@@ -450,7 +452,7 @@ launchctl list | grep kioku
 ## 動作確認チェックリスト
 
 **Phase 1-2**
-- [ ] `gh repo view nakatadesign/kioku --json visibility -q '.visibility'` → `PRIVATE`
+- [ ] `gh repo view YOUR_GH_USER/kioku --json visibility -q '.visibility'` → `PRIVATE`
 - [ ] `.gitignore` に `.last-inbox-check`・`.last-notified`・`.daily-notify-count` が含まれている
 - [ ] CLAUDE.md のトリガーワード表が `inbox/` への書き込みになっている
 
