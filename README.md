@@ -256,6 +256,24 @@ Obsidian Vault                       ← long-term storage, graph view
 
 ---
 
+## Optional: Semantic memory engine (v2)
+
+kioku includes an optional local semantic search engine in `memory/`. When set up, it enables:
+
+- **Meaning-based note discovery** — finds related notes even when keywords don't match, using a local embedding model ([Ruri v3-130m](https://huggingface.co/cl-nagoya/ruri-v3-130m))
+- **Zero-cost proactive checks** — replaces the Claude API call in `proactive-check.sh` with local FTS5 + vector search
+- **No external API dependency** — all search runs locally. Telegram notifications use the Bot API directly
+
+This is entirely optional. Without it, kioku v1 works as-is with grep/glob search. To enable it:
+
+```bash
+bash scripts/memory-setup.sh
+```
+
+Requires Python 3.10+ with `enable_load_extension` support (e.g. Homebrew Python). See [`docs/memory-design-v2.md`](./docs/memory-design-v2.md) for architecture and setup details.
+
+---
+
 ## Documentation
 
 | Document | Contents |
@@ -265,6 +283,7 @@ Obsidian Vault                       ← long-term storage, graph view
 | [Security](./docs/security-v1.md) | 4-layer defense, privacy policy, checklist |
 | [Setup](./docs/setup-v1.md) | Phase 1–5 instructions, verification checklist |
 | [Notification Policy](./docs/notification-policy-v1.md) | Governance settings, parameter tuning, log format |
+| [Memory Design v2](./docs/memory-design-v2.md) | Semantic search engine architecture, local-first design |
 
 ---
 

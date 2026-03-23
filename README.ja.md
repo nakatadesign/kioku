@@ -256,6 +256,24 @@ Obsidian Vault                       ← 長期保管・グラフ探索
 
 ---
 
+## オプション: セマンティック記憶エンジン (v2)
+
+kioku には、オプションのローカルセマンティック検索エンジン（`memory/`）が含まれています。セットアップすると以下が有効になります:
+
+- **意味ベースのノート発見** — キーワードが一致しなくても関連ノートを検出（ローカル埋め込みモデル [Ruri v3-130m](https://huggingface.co/cl-nagoya/ruri-v3-130m) を使用）
+- **コストゼロのプロアクティブ通知** — `proactive-check.sh` の Claude API 呼び出しをローカルの FTS5 + ベクトル検索に置換
+- **外部 API 不使用** — 検索はすべてローカル完結。Telegram 通知は Bot API を直接呼び出し
+
+v2 はオプションです。なくても kioku v1 は grep/glob 検索で動作します。有効にするには:
+
+```bash
+bash scripts/memory-setup.sh
+```
+
+`enable_load_extension` 対応の Python 3.10+ が必要です（例: Homebrew Python）。詳細は [`docs/memory-design-v2.md`](./docs/memory-design-v2.md) を参照してください。
+
+---
+
 ## ドキュメント
 
 | ドキュメント | 内容 |
@@ -265,6 +283,7 @@ Obsidian Vault                       ← 長期保管・グラフ探索
 | [セキュリティ](./docs/security-v1.md) | 4層防御・プライバシーポリシー・チェックリスト |
 | [セットアップ](./docs/setup-v1.md) | Phase 1〜5 の手順・動作確認チェックリスト |
 | [通知ポリシー](./docs/notification-policy-v1.md) | ガバナンス設定・パラメータ調整・ログ運用 |
+| [Memory 設計 v2](./docs/memory-design-v2.md) | セマンティック検索エンジンの設計・ローカルファースト方針 |
 
 ---
 
