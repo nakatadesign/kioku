@@ -84,11 +84,19 @@ proactive-check.sh の Telegram 通知は現在 `claude -p` 経由。
 Phase 2 統合時に `curl + Telegram Bot API` 直接呼び出しに切り替え、
 Claude API 依存を完全に排除する。
 
-### Phase 3: process.md 統合
+### Phase 3: process.md 統合 — **完了**
 
 - `/project:process` で notes/ に移動したファイルを自動 ingest
 - 失敗耐性: memory エラーで process 全体を止めない
 - memory 未セットアップ時はスキップ
+
+**既知の性能課題: 複数ファイル時の cold start 重複**
+
+現状は `memory.cli ingest <path>` をファイルごとに呼ぶため、Python プロセス起動 + モデルロード（約 8.7s）が毎回発生する。1回の process で 3 件以上のファイルを処理するケースが増えたら、以下の最適化を実装する:
+
+- `memory.cli ingest-many <path1> <path2> ...` コマンドを追加
+- 1 プロセスでモデルを 1 回だけロードし、複数ファイルを順次 ingest する
+- process.md からの呼び出しを `ingest` × N 回 → `ingest-many` × 1 回に切り替える
 
 ### Phase 4: MCP サーバー化（Phase 2-3 の価値確認後）
 
