@@ -118,6 +118,7 @@ source "$TELEGRAM_ENV"
 
 if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
   echo "$(date): TELEGRAM_BOT_TOKEN または TELEGRAM_CHAT_ID が未設定、通知スキップ" >> "$LOG"
+  echo "$(date): 設定方法は docs/setup-v1.md の Phase 4 を参照してください" >> "$LOG"
   echo "$(date): 通知内容（ログ記録のみ）:" >> "$LOG"
   echo "$NOTIFY_TITLES" >> "$LOG"
   exit 0
@@ -131,8 +132,7 @@ ${NOTIFY_TITLES}"
 HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
   "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
   -d "chat_id=${TELEGRAM_CHAT_ID}" \
-  --data-urlencode "text=${MSG}" \
-  --data-urlencode "parse_mode=Markdown" 2>> "$LOG") || true
+  --data-urlencode "text=${MSG}" 2>> "$LOG") || true
 
 if [ "$HTTP_CODE" = "200" ]; then
   echo "$(date): Telegram 通知送信成功" >> "$LOG"

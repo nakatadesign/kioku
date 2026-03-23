@@ -238,13 +238,20 @@ curl -fsSL https://bun.sh/install | bash
 4. `bot` で終わるユーザー名を設定（例：`nakata_kioku_bot`）
 5. トークンをコピー
 
-### 4-3. トークンを保存
+### 4-3. トークンと Chat ID を保存
 
 ```bash
 mkdir -p ~/.claude/channels/telegram
-echo "TELEGRAM_BOT_TOKEN=your_token_here" > ~/.claude/channels/telegram/.env
-# your_token_here を実際のトークンに置き換える
+cat > ~/.claude/channels/telegram/.env << 'EOF'
+TELEGRAM_BOT_TOKEN=your_token_here
+TELEGRAM_CHAT_ID=your_chat_id_here
+EOF
+# your_token_here と your_chat_id_here を実際の値に置き換える
 ```
+
+**Chat ID の取得方法：** bot に `/start` を送ったあと、ブラウザで
+`https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` を開き、
+レスポンス内の `"chat":{"id": 数字}` が自分の Chat ID です。
 
 ### 4-4. プラグインのインストール
 
